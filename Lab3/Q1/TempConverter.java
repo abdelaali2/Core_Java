@@ -1,4 +1,4 @@
-package q1;
+package Q1;
 import java.util.function.Function;
 public class TempConverter implements Function<Float, Float>{
     @Override

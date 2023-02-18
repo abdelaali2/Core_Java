@@ -1,22 +1,19 @@
-package q1;
+package q2;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.lang.System.Logger;
-import java.lang.System.Logger.Level;
-import java.util.Date;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class Q1 {
+public class Q2 {
 
     public static void main(String[] args) {
         JFrame myFrame = new JFrame();
-        myFrame.setTitle("Simple Clock");
+        myFrame.setTitle("I'm Moving");
         Panel panel = new Panel();
         myFrame.setContentPane(panel);
-        myFrame.setSize(500, 500);
+        myFrame.setSize(1000, 500);
         myFrame.setVisible(true);
     }
 
@@ -24,10 +21,12 @@ public class Q1 {
 
 class Panel extends JPanel implements Runnable {
 
+    int x = 0;
+
     public Panel() {
         this.setBackground(Color.BLACK);
         this.setForeground(Color.GREEN);
-        this.setFont(new Font("Serif", Font.ITALIC + Font.BOLD, 28));
+        this.setFont(new Font("Serif", Font.ITALIC + Font.BOLD, 22));
         new Thread(this).start();
     }
 
@@ -36,7 +35,8 @@ class Panel extends JPanel implements Runnable {
         while (true) {
             try {
                 this.repaint();
-                Thread.sleep(1000);
+                x += 10;
+                Thread.sleep(300);
             } catch (InterruptedException ex) {
                 java.util.logging.Logger.getLogger(Panel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
             }
@@ -46,6 +46,9 @@ class Panel extends JPanel implements Runnable {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawString(new Date().toLocaleString(), 100, 100);
+        if (x > this.getWidth()) {
+            x = 0;
+        }
+        g.drawString("Check me Out! I'm Mooooving :D", x, 400);
     }
 }
